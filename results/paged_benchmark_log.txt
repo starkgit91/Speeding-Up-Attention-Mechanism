@@ -1,0 +1,50 @@
+==============================================================================
+PAGEDATTENTION BENCHMARK (vLLM-style KV cache, from scratch)
+==============================================================================
+  KV model: gqa-13b-like  40 layers, 8 KV heads, head_dim 128, fp16
+  KV cache cost: 160.0 KB per token (336 MB per 2048-token sequence)
+  block_size: 16 tokens
+
+[1] Fragmentation — allocated KV memory & utilisation (256 seqs, max_len 2048)
+  mean_gen=   64: contiguous  85.90 GB (util  3.4%)  paged   3.24 GB (util 90.3%)  -> 26.5x less
+  mean_gen=  128: contiguous  85.90 GB (util  6.5%)  paged   5.86 GB (util 94.5%)  -> 14.6x less
+  mean_gen=  256: contiguous  85.90 GB (util 12.5%)  paged  11.09 GB (util 97.2%)  ->  7.7x less
+  mean_gen=  512: contiguous  85.90 GB (util 24.1%)  paged  21.02 GB (util 98.5%)  ->  4.1x less
+  mean_gen= 1024: contiguous  85.90 GB (util 42.1%)  paged  36.46 GB (util 99.2%)  ->  2.4x less
+
+[2a] Concurrency — sequences admitted in a fixed KV budget
+  budget     2 GB: contiguous admits    5 seqs, paged admits   36 seqs  ->  7.2x more
+  budget     4 GB: contiguous admits   11 seqs, paged admits   87 seqs  ->  7.9x more
+  budget     8 GB: contiguous admits   23 seqs, paged admits  165 seqs  ->  7.2x more
+  budget    16 GB: contiguous admits   47 seqs, paged admits  342 seqs  ->  7.3x more
+  budget    32 GB: contiguous admits   95 seqs, paged admits  685 seqs  ->  7.2x more
+  budget    64 GB: contiguous admits  190 seqs, paged admits 1410 seqs  ->  7.4x more
+
+[2b] Decode throughput — measured tokens/s vs batch size
+  batch    1:   0.121 ms/step       8261 tok/s
+  batch    8:   0.183 ms/step      43683 tok/s
+  batch   32:   0.878 ms/step      36458 tok/s
+  batch   64:   1.626 ms/step      39355 tok/s
+  batch  128:   3.360 ms/step      38093 tok/s
+  batch  256:   6.678 ms/step      38334 tok/s
+  batch  512:  13.550 ms/step      37786 tok/s
+
+[3] Prefix sharing — shared 512-token prompt across N sequences
+  N=   1: contiguous  0.105 GB  paged(no share)  0.105 GB  paged(shared prompt)  0.105 GB  ->  1.0x vs contiguous
+  N=   2: contiguous  0.210 GB  paged(no share)  0.210 GB  paged(shared prompt)  0.126 GB  ->  1.7x vs contiguous
+  N=   4: contiguous  0.419 GB  paged(no share)  0.419 GB  paged(shared prompt)  0.168 GB  ->  2.5x vs contiguous
+  N=   8: contiguous  0.839 GB  paged(no share)  0.839 GB  paged(shared prompt)  0.252 GB  ->  3.3x vs contiguous
+  N=  16: contiguous  1.678 GB  paged(no share)  1.678 GB  paged(shared prompt)  0.419 GB  ->  4.0x vs contiguous
+  N=  32: contiguous  3.355 GB  paged(no share)  3.355 GB  paged(shared prompt)  0.755 GB  ->  4.4x vs contiguous
+  N=  64: contiguous  6.711 GB  paged(no share)  6.711 GB  paged(shared prompt)  1.426 GB  ->  4.7x vs contiguous
+  N= 128: contiguous 13.422 GB  paged(no share) 13.422 GB  paged(shared prompt)  2.768 GB  ->  4.8x vs contiguous
+  N= 256: contiguous 26.844 GB  paged(no share) 26.844 GB  paged(shared prompt)  5.453 GB  ->  4.9x vs contiguous
+
+[4] Latency — paged gather path vs one contiguous tensor (equal length)
+  ctx   128: paged   0.336 ms  contiguous   0.090 ms  overhead +274.4%
+  ctx   512: paged   1.288 ms  contiguous   0.305 ms  overhead +322.6%
+  ctx  1024: paged   2.661 ms  contiguous   0.586 ms  overhead +354.4%
+  ctx  2048: paged   5.571 ms  contiguous   1.151 ms  overhead +384.1%
+  ctx  4096: paged  11.450 ms  contiguous   2.333 ms  overhead +390.8%
+
+  wrote ../results/paged_benchmarks.json

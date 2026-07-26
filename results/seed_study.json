@@ -1,0 +1,435 @@
+{
+  "summary": {
+    "MHA": {
+      "mean": 1.4943467466036477,
+      "std": 0.008765005625826853,
+      "min": 1.4892288005352021,
+      "max": 1.5044674849510193,
+      "n": 3,
+      "losses": [
+        1.4892288005352021,
+        1.4893439543247222,
+        1.5044674849510193
+      ],
+      "kv_bytes_per_token": 9216
+    },
+    "GQA-4": {
+      "mean": 1.493675734202067,
+      "std": 0.004923652034513639,
+      "min": 1.4893093299865723,
+      "max": 1.4990122258663177,
+      "n": 3,
+      "losses": [
+        1.4990122258663177,
+        1.492705646753311,
+        1.4893093299865723
+      ],
+      "kv_bytes_per_token": 4608
+    },
+    "MQA": {
+      "mean": 1.4929809912045797,
+      "std": 0.004738893502910933,
+      "min": 1.4902163064479828,
+      "max": 1.4984528934955597,
+      "n": 3,
+      "losses": [
+        1.4902163064479828,
+        1.4902737736701965,
+        1.4984528934955597
+      ],
+      "kv_bytes_per_token": 1152
+    }
+  },
+  "runs": {
+    "MHA": [
+      {
+        "name": "MHA/s1337",
+        "config": {
+          "vocab_size": 65,
+          "block_size": 256,
+          "n_layer": 6,
+          "n_head": 8,
+          "n_kv_head": 8,
+          "n_embd": 384,
+          "dropout": 0.1,
+          "kernel": "flash"
+        },
+        "params_m": 10.75008,
+        "kv_cache_bytes_per_token": 9216,
+        "final_train_loss": 1.1568184542655944,
+        "final_val_loss": 1.4892288005352021,
+        "final_val_ppl": 4.43367495245323,
+        "median_step_ms": 16.165558001375757,
+        "tokens_per_s": 506756.40143710637,
+        "total_train_s": 50.87720848401659,
+        "peak_mem_mb": 1042.574848,
+        "history": {
+          "step": [
+            1,
+            3000
+          ],
+          "train_loss": [
+            4.032654190063477,
+            1.1563891172409058
+          ],
+          "val_loss": [
+            4.039937829971313,
+            1.494450929760933
+          ],
+          "wall_s": [
+            0.6672635250142775,
+            50.87716450501466
+          ]
+        },
+        "seed": 1337,
+        "layout": "MHA"
+      },
+      {
+        "name": "MHA/s7",
+        "config": {
+          "vocab_size": 65,
+          "block_size": 256,
+          "n_layer": 6,
+          "n_head": 8,
+          "n_kv_head": 8,
+          "n_embd": 384,
+          "dropout": 0.1,
+          "kernel": "flash"
+        },
+        "params_m": 10.75008,
+        "kv_cache_bytes_per_token": 9216,
+        "final_train_loss": 1.1549786734580993,
+        "final_val_loss": 1.4893439543247222,
+        "final_val_ppl": 4.434185536322775,
+        "median_step_ms": 16.194277501199394,
+        "tokens_per_s": 505857.7018575405,
+        "total_train_s": 50.73176158199203,
+        "peak_mem_mb": 1043.885568,
+        "history": {
+          "step": [
+            1,
+            3000
+          ],
+          "train_loss": [
+            4.086498069763183,
+            1.1531370788812638
+          ],
+          "val_loss": [
+            4.0864684104919435,
+            1.4956951975822448
+          ],
+          "wall_s": [
+            0.43057327601127326,
+            50.7317073099839
+          ]
+        },
+        "seed": 7,
+        "layout": "MHA"
+      },
+      {
+        "name": "MHA/s2024",
+        "config": {
+          "vocab_size": 65,
+          "block_size": 256,
+          "n_layer": 6,
+          "n_head": 8,
+          "n_kv_head": 8,
+          "n_embd": 384,
+          "dropout": 0.1,
+          "kernel": "flash"
+        },
+        "params_m": 10.75008,
+        "kv_cache_bytes_per_token": 9216,
+        "final_train_loss": 1.1599617958068849,
+        "final_val_loss": 1.5044674849510193,
+        "final_val_ppl": 4.501755739210641,
+        "median_step_ms": 16.191581016755663,
+        "tokens_per_s": 505941.9454791109,
+        "total_train_s": 50.72673093297635,
+        "peak_mem_mb": 1043.885568,
+        "history": {
+          "step": [
+            1,
+            3000
+          ],
+          "train_loss": [
+            4.083797264099121,
+            1.1585213631391524
+          ],
+          "val_loss": [
+            4.084658432006836,
+            1.5105015218257904
+          ],
+          "wall_s": [
+            0.433249021996744,
+            50.7266834419861
+          ]
+        },
+        "seed": 2024,
+        "layout": "MHA"
+      }
+    ],
+    "GQA-4": [
+      {
+        "name": "GQA-4/s1337",
+        "config": {
+          "vocab_size": 65,
+          "block_size": 256,
+          "n_layer": 6,
+          "n_head": 8,
+          "n_kv_head": 4,
+          "n_embd": 384,
+          "dropout": 0.1,
+          "kernel": "flash"
+        },
+        "params_m": 9.865344,
+        "kv_cache_bytes_per_token": 4608,
+        "final_train_loss": 1.1682671701908112,
+        "final_val_loss": 1.4990122258663177,
+        "final_val_ppl": 4.477264359466417,
+        "median_step_ms": 15.709309998783283,
+        "tokens_per_s": 521474.20864662336,
+        "total_train_s": 49.27218956197612,
+        "peak_mem_mb": 1030.843904,
+        "history": {
+          "step": [
+            1,
+            3000
+          ],
+          "train_loss": [
+            4.03670597076416,
+            1.166555431485176
+          ],
+          "val_loss": [
+            4.041363286972046,
+            1.5054554760456085
+          ],
+          "wall_s": [
+            0.4278053849993739,
+            49.27214614598779
+          ]
+        },
+        "seed": 1337,
+        "layout": "GQA-4"
+      },
+      {
+        "name": "GQA-4/s7",
+        "config": {
+          "vocab_size": 65,
+          "block_size": 256,
+          "n_layer": 6,
+          "n_head": 8,
+          "n_kv_head": 4,
+          "n_embd": 384,
+          "dropout": 0.1,
+          "kernel": "flash"
+        },
+        "params_m": 9.865344,
+        "kv_cache_bytes_per_token": 4608,
+        "final_train_loss": 1.1623347985744477,
+        "final_val_loss": 1.492705646753311,
+        "final_val_ppl": 4.449116987679013,
+        "median_step_ms": 15.711015483248048,
+        "tokens_per_s": 521417.6008377538,
+        "total_train_s": 49.29967694499646,
+        "peak_mem_mb": 1030.843904,
+        "history": {
+          "step": [
+            1,
+            3000
+          ],
+          "train_loss": [
+            4.0690819263458256,
+            1.1608041375875473
+          ],
+          "val_loss": [
+            4.082045364379883,
+            1.4970428824424744
+          ],
+          "wall_s": [
+            0.4277716850047,
+            49.29963733899058
+          ]
+        },
+        "seed": 7,
+        "layout": "GQA-4"
+      },
+      {
+        "name": "GQA-4/s2024",
+        "config": {
+          "vocab_size": 65,
+          "block_size": 256,
+          "n_layer": 6,
+          "n_head": 8,
+          "n_kv_head": 4,
+          "n_embd": 384,
+          "dropout": 0.1,
+          "kernel": "flash"
+        },
+        "params_m": 9.865344,
+        "kv_cache_bytes_per_token": 4608,
+        "final_train_loss": 1.160973927974701,
+        "final_val_loss": 1.4893093299865723,
+        "final_val_ppl": 4.434032008241265,
+        "median_step_ms": 15.71379449160304,
+        "tokens_per_s": 521325.3873453384,
+        "total_train_s": 49.32350513600977,
+        "peak_mem_mb": 1030.843904,
+        "history": {
+          "step": [
+            1,
+            3000
+          ],
+          "train_loss": [
+            4.128596782684326,
+            1.1602113991975784
+          ],
+          "val_loss": [
+            4.1301515102386475,
+            1.4937056958675385
+          ],
+          "wall_s": [
+            0.4247916860040277,
+            49.32346142901224
+          ]
+        },
+        "seed": 2024,
+        "layout": "GQA-4"
+      }
+    ],
+    "MQA": [
+      {
+        "name": "MQA/s1337",
+        "config": {
+          "vocab_size": 65,
+          "block_size": 256,
+          "n_layer": 6,
+          "n_head": 8,
+          "n_kv_head": 1,
+          "n_embd": 384,
+          "dropout": 0.1,
+          "kernel": "flash"
+        },
+        "params_m": 9.201792,
+        "kv_cache_bytes_per_token": 1152,
+        "final_train_loss": 1.2002886521816254,
+        "final_val_loss": 1.4902163064479828,
+        "final_val_ppl": 4.438055395184701,
+        "median_step_ms": 14.839443989330903,
+        "tokens_per_s": 552042.2467236504,
+        "total_train_s": 46.58126634900691,
+        "peak_mem_mb": 947.858944,
+        "history": {
+          "step": [
+            1,
+            3000
+          ],
+          "train_loss": [
+            4.08440318107605,
+            1.1988050609827041
+          ],
+          "val_loss": [
+            4.0872002124786375,
+            1.4970199674367906
+          ],
+          "wall_s": [
+            0.40129556000465527,
+            46.58122359402478
+          ]
+        },
+        "seed": 1337,
+        "layout": "MQA"
+      },
+      {
+        "name": "MQA/s7",
+        "config": {
+          "vocab_size": 65,
+          "block_size": 256,
+          "n_layer": 6,
+          "n_head": 8,
+          "n_kv_head": 1,
+          "n_embd": 384,
+          "dropout": 0.1,
+          "kernel": "flash"
+        },
+        "params_m": 9.201792,
+        "kv_cache_bytes_per_token": 1152,
+        "final_train_loss": 1.1952967739105225,
+        "final_val_loss": 1.4902737736701965,
+        "final_val_ppl": 4.4383104452287325,
+        "median_step_ms": 14.83990800625179,
+        "tokens_per_s": 552024.9853670829,
+        "total_train_s": 46.58283294798457,
+        "peak_mem_mb": 947.858944,
+        "history": {
+          "step": [
+            1,
+            3000
+          ],
+          "train_loss": [
+            4.112190771102905,
+            1.1942181915044785
+          ],
+          "val_loss": [
+            4.117266082763672,
+            1.495749083161354
+          ],
+          "wall_s": [
+            0.3883869709970895,
+            46.58279610000318
+          ]
+        },
+        "seed": 7,
+        "layout": "MQA"
+      },
+      {
+        "name": "MQA/s2024",
+        "config": {
+          "vocab_size": 65,
+          "block_size": 256,
+          "n_layer": 6,
+          "n_head": 8,
+          "n_kv_head": 1,
+          "n_embd": 384,
+          "dropout": 0.1,
+          "kernel": "flash"
+        },
+        "params_m": 9.201792,
+        "kv_cache_bytes_per_token": 1152,
+        "final_train_loss": 1.1821488344669342,
+        "final_val_loss": 1.4984528934955597,
+        "final_val_ppl": 4.47476078080929,
+        "median_step_ms": 14.842454009340145,
+        "tokens_per_s": 551930.2936593161,
+        "total_train_s": 46.58365680798306,
+        "peak_mem_mb": 947.858944,
+        "history": {
+          "step": [
+            1,
+            3000
+          ],
+          "train_loss": [
+            4.1275139331817625,
+            1.1805379748344422
+          ],
+          "val_loss": [
+            4.122979688644409,
+            1.502764418721199
+          ],
+          "wall_s": [
+            0.38833641799283214,
+            46.58361678998335
+          ]
+        },
+        "seed": 2024,
+        "layout": "MQA"
+      }
+    ]
+  },
+  "seeds": [
+    1337,
+    7,
+    2024
+  ],
+  "steps": 3000
+}

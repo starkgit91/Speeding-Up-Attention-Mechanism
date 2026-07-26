@@ -1,0 +1,443 @@
+==============================================================================
+ATTENTION BENCHMARK
+==============================================================================
+  gpu                  NVIDIA GeForce RTX 5070
+  compute_capability   sm_120
+  total_mem_gb         12.35
+  sms                  48
+  torch                2.11.0+cu128
+  cuda                 12.8
+  cudnn                91900
+  triton               3.6.0
+  driver               595.71.05
+  python               3.12.3
+  platform             Linux-7.0.0-28-generic-x86_64-with-glibc2.39
+  sdpa_backends        ['cudnn', 'flash', 'math', 'mem_efficient']
+  timestamp            2026-07-24 17:44:05
+
+  kernels under test: ['naive', 'math', 'cudnn', 'flash', 'mem_efficient', 'auto', 'triton_flash', 'tiled_flash']
+
+==============================================================================
+SWEEP A - report configuration: batch 16, embed 768, 12 heads, fp16, non-causal
+==============================================================================
+
+  --- A_main: B=16 H=12 N=128 D=64 dtype=float16 causal=False ---
+      naive               0.044 ms        15.7 MB     18.22 TFLOP/s   relerr 5.05e-04
+      math                0.186 ms        53.5 MB      4.32 TFLOP/s   relerr 2.08e-04
+      cudnn               0.034 ms         3.1 MB     23.62 TFLOP/s   relerr 2.67e-04
+      flash               0.024 ms         3.2 MB     33.27 TFLOP/s   relerr 2.70e-04
+      mem_efficient       0.030 ms         3.1 MB     26.46 TFLOP/s   relerr 2.67e-04
+      auto                0.017 ms         3.2 MB     47.84 TFLOP/s   relerr 2.70e-04
+      triton_flash        0.022 ms         3.1 MB     36.21 TFLOP/s   relerr 2.67e-04
+      tiled_flash         0.178 ms        54.1 MB      4.53 TFLOP/s   relerr 5.34e-04
+
+  --- A_main: B=16 H=12 N=256 D=64 dtype=float16 causal=False ---
+      naive               0.188 ms        56.6 MB     17.18 TFLOP/s   relerr 5.28e-04
+      math                0.979 ms       163.6 MB      3.29 TFLOP/s   relerr 2.07e-04
+      cudnn               0.060 ms         6.3 MB     54.00 TFLOP/s   relerr 2.70e-04
+      flash               0.054 ms         6.5 MB     59.11 TFLOP/s   relerr 2.72e-04
+      mem_efficient       0.104 ms         6.3 MB     30.84 TFLOP/s   relerr 2.70e-04
+      auto                0.055 ms         6.5 MB     58.59 TFLOP/s   relerr 2.72e-04
+      triton_flash        0.067 ms         6.3 MB     47.79 TFLOP/s   relerr 2.70e-04
+      tiled_flash         0.707 ms        63.5 MB      4.55 TFLOP/s   relerr 5.56e-04
+
+  --- A_main: B=16 H=12 N=512 D=64 dtype=float16 causal=False ---
+      naive               1.192 ms       213.9 MB     10.81 TFLOP/s   relerr 5.45e-04
+      math                3.784 ms       553.7 MB      3.40 TFLOP/s   relerr 2.08e-04
+      cudnn               0.217 ms        12.6 MB     59.25 TFLOP/s   relerr 2.74e-04
+      flash               0.207 ms        13.0 MB     62.14 TFLOP/s   relerr 2.76e-04
+      mem_efficient       0.407 ms        12.6 MB     31.63 TFLOP/s   relerr 2.74e-04
+      auto                0.207 ms        13.0 MB     62.16 TFLOP/s   relerr 2.76e-04
+      triton_flash        0.252 ms        12.6 MB     51.09 TFLOP/s   relerr 2.74e-04
+      tiled_flash         2.747 ms        69.8 MB      4.69 TFLOP/s   relerr 5.74e-04
+
+  --- A_main: B=16 H=12 N=1024 D=64 dtype=float16 causal=False ---
+      naive               4.516 ms       830.5 MB     11.41 TFLOP/s   relerr 5.53e-04
+      math               14.277 ms      2013.5 MB      3.61 TFLOP/s   relerr 2.07e-04
+      cudnn               0.832 ms        25.2 MB     61.97 TFLOP/s   relerr 2.78e-04
+      flash               0.788 ms        26.0 MB     65.44 TFLOP/s   relerr 2.78e-04
+      mem_efficient       1.586 ms        25.2 MB     32.50 TFLOP/s   relerr 2.78e-04
+      auto                0.790 ms        26.0 MB     65.28 TFLOP/s   relerr 2.78e-04
+      triton_flash        1.032 ms        25.2 MB     49.93 TFLOP/s   relerr 2.78e-04
+      tiled_flash     skipped (pure-python tiling too slow above N=512)
+
+  --- A_main: B=16 H=12 N=2048 D=64 dtype=float16 causal=False ---
+      naive              18.696 ms      3271.6 MB     11.03 TFLOP/s   relerr 5.56e-04
+      math               55.481 ms      7650.8 MB      3.72 TFLOP/s   relerr 2.08e-04
+      cudnn               3.431 ms        50.3 MB     60.08 TFLOP/s   relerr 2.81e-04
+      flash               3.523 ms        51.9 MB     58.52 TFLOP/s   relerr 2.82e-04
+      mem_efficient       6.956 ms        50.3 MB     29.64 TFLOP/s   relerr 2.81e-04
+      auto                3.381 ms        51.9 MB     60.97 TFLOP/s   relerr 2.82e-04
+      triton_flash        4.416 ms        50.3 MB     46.68 TFLOP/s   relerr 2.81e-04
+      tiled_flash     skipped (pure-python tiling too slow above N=512)
+
+  --- A_main: B=16 H=12 N=4096 D=64 dtype=float16 causal=False ---
+      naive           OUT OF MEMORY
+      math            OUT OF MEMORY
+      cudnn              12.533 ms       100.7 MB     65.80 TFLOP/s   relerr 2.84e-04
+      flash              12.669 ms       103.8 MB     65.09 TFLOP/s   relerr 2.84e-04
+      mem_efficient      25.146 ms       100.7 MB     32.79 TFLOP/s   relerr 2.84e-04
+      auto               12.536 ms       103.8 MB     65.78 TFLOP/s   relerr 2.84e-04
+      triton_flash       15.410 ms       100.7 MB     53.51 TFLOP/s   relerr 2.84e-04
+      tiled_flash     skipped (pure-python tiling too slow above N=512)
+
+==============================================================================
+SWEEP B - long context, batch 4 (where the naive path runs out of memory)
+==============================================================================
+
+  --- B_longctx: B=4 H=12 N=1024 D=64 dtype=float16 causal=False ---
+      naive               1.114 ms       207.6 MB     11.57 TFLOP/s   relerr 5.54e-04
+      math                3.559 ms       503.4 MB      3.62 TFLOP/s   relerr 2.07e-04
+      cudnn               0.207 ms         6.3 MB     62.38 TFLOP/s   relerr 2.78e-04
+      flash               0.198 ms         6.5 MB     64.95 TFLOP/s   relerr 2.79e-04
+      mem_efficient       0.405 ms         6.3 MB     31.80 TFLOP/s   relerr 2.78e-04
+      auto                0.200 ms         6.5 MB     64.30 TFLOP/s   relerr 2.79e-04
+      triton_flash        0.245 ms         6.3 MB     52.50 TFLOP/s   relerr 2.78e-04
+      tiled_flash     skipped (pure-python tiling too slow above N=0)
+
+  --- B_longctx: B=4 H=12 N=2048 D=64 dtype=float16 causal=False ---
+      naive               4.603 ms       817.9 MB     11.20 TFLOP/s   relerr 5.60e-04
+      math               13.803 ms      1912.7 MB      3.73 TFLOP/s   relerr 2.08e-04
+      cudnn               0.786 ms        12.6 MB     65.56 TFLOP/s   relerr 2.82e-04
+      flash               0.778 ms        13.0 MB     66.25 TFLOP/s   relerr 2.83e-04
+      mem_efficient       1.579 ms        12.6 MB     32.65 TFLOP/s   relerr 2.82e-04
+      auto                0.778 ms        13.0 MB     66.25 TFLOP/s   relerr 2.83e-04
+      triton_flash        0.966 ms        12.6 MB     53.34 TFLOP/s   relerr 2.82e-04
+      tiled_flash     skipped (pure-python tiling too slow above N=0)
+
+  --- B_longctx: B=4 H=12 N=4096 D=64 dtype=float16 causal=False ---
+      naive              20.840 ms      3246.4 MB      9.89 TFLOP/s   relerr 5.61e-04
+      math               53.618 ms      7449.3 MB      3.84 TFLOP/s   relerr 2.07e-04
+      cudnn               3.137 ms        25.2 MB     65.71 TFLOP/s   relerr 2.84e-04
+      flash               3.129 ms        26.0 MB     65.89 TFLOP/s   relerr 2.84e-04
+      mem_efficient       6.333 ms        25.2 MB     32.55 TFLOP/s   relerr 2.84e-04
+      auto                3.129 ms        26.0 MB     65.89 TFLOP/s   relerr 2.84e-04
+      triton_flash        3.881 ms        25.2 MB     53.12 TFLOP/s   relerr 2.84e-04
+      tiled_flash     skipped (pure-python tiling too slow above N=0)
+
+  --- B_longctx: B=4 H=12 N=8192 D=64 dtype=float16 causal=False ---
+      naive           OUT OF MEMORY
+      math            OUT OF MEMORY
+      cudnn              12.430 ms        50.3 MB     66.34 TFLOP/s   relerr 2.86e-04
+      flash              12.472 ms        51.9 MB     66.12 TFLOP/s   relerr 2.87e-04
+      mem_efficient      25.587 ms        50.3 MB     32.23 TFLOP/s   relerr 2.87e-04
+      auto               12.470 ms        51.9 MB     66.13 TFLOP/s   relerr 2.87e-04
+      triton_flash       15.293 ms        50.3 MB     53.92 TFLOP/s   relerr 2.86e-04
+      tiled_flash     skipped (pure-python tiling too slow above N=0)
+
+  --- B_longctx: B=4 H=12 N=16384 D=64 dtype=float16 causal=False ---
+      naive           OUT OF MEMORY
+      math            OUT OF MEMORY
+      cudnn              49.810 ms       100.7 MB     66.22 TFLOP/s   relerr 2.89e-04
+      flash              51.306 ms       103.8 MB     64.29 TFLOP/s   relerr 2.89e-04
+      mem_efficient     101.957 ms       100.7 MB     32.35 TFLOP/s   relerr 2.90e-04
+      auto               51.319 ms       103.8 MB     64.27 TFLOP/s   relerr 2.89e-04
+      triton_flash       61.114 ms       100.7 MB     53.97 TFLOP/s   relerr 2.89e-04
+      tiled_flash     skipped (pure-python tiling too slow above N=0)
+
+  --- B_longctx: B=4 H=12 N=32768 D=64 dtype=float16 causal=False ---
+      naive           OUT OF MEMORY
+      math            OUT OF MEMORY
+      cudnn             200.720 ms       201.3 MB     65.73 TFLOP/s   relerr 2.92e-04
+      flash             202.675 ms       207.6 MB     65.10 TFLOP/s   relerr 2.92e-04
+      mem_efficient     406.947 ms       201.3 MB     32.42 TFLOP/s   relerr 3.00e-04
+      auto              202.705 ms       207.6 MB     65.09 TFLOP/s   relerr 2.92e-04
+      triton_flash      248.501 ms       201.3 MB     53.09 TFLOP/s   relerr 2.92e-04
+      tiled_flash     skipped (pure-python tiling too slow above N=0)
+
+==============================================================================
+SWEEP C - causal masking (decoder-style attention)
+==============================================================================
+
+  --- C_causal: B=8 H=12 N=512 D=64 dtype=float16 causal=True ---
+      naive               1.072 ms       107.2 MB      3.00 TFLOP/s   relerr 4.34e-04
+      math                2.188 ms       277.9 MB      1.47 TFLOP/s   relerr 1.99e-04
+      cudnn               0.098 ms         6.3 MB     32.83 TFLOP/s   relerr 2.46e-04
+      flash               0.078 ms         6.5 MB     41.54 TFLOP/s   relerr 2.47e-04
+      mem_efficient       0.139 ms         6.3 MB     23.17 TFLOP/s   relerr 2.46e-04
+      auto                0.077 ms         6.5 MB     41.88 TFLOP/s   relerr 2.47e-04
+      triton_flash        0.075 ms         6.3 MB     42.74 TFLOP/s   relerr 2.46e-04
+      tiled_flash     skipped (pure-python tiling too slow above N=0)
+
+  --- C_causal: B=8 H=12 N=1024 D=64 dtype=float16 causal=True ---
+      naive               4.031 ms       416.3 MB      3.20 TFLOP/s   relerr 4.49e-04
+      math                8.561 ms      1010.9 MB      1.51 TFLOP/s   relerr 2.00e-04
+      cudnn               0.300 ms        12.6 MB     42.89 TFLOP/s   relerr 2.50e-04
+      flash               0.246 ms        13.0 MB     52.41 TFLOP/s   relerr 2.51e-04
+      mem_efficient       0.457 ms        12.6 MB     28.20 TFLOP/s   relerr 2.50e-04
+      auto                0.249 ms        13.0 MB     51.65 TFLOP/s   relerr 2.51e-04
+      triton_flash        0.251 ms        12.6 MB     51.37 TFLOP/s   relerr 2.50e-04
+      tiled_flash     skipped (pure-python tiling too slow above N=0)
+
+  --- C_causal: B=8 H=12 N=2048 D=64 dtype=float16 causal=True ---
+      naive              16.221 ms      1641.0 MB      3.18 TFLOP/s   relerr 4.64e-04
+      math               35.239 ms      3842.2 MB      1.46 TFLOP/s   relerr 2.01e-04
+      cudnn               0.911 ms        25.2 MB     56.60 TFLOP/s   relerr 2.53e-04
+      flash               0.885 ms        26.0 MB     58.25 TFLOP/s   relerr 2.54e-04
+      mem_efficient       1.711 ms        25.2 MB     30.13 TFLOP/s   relerr 2.53e-04
+      auto                0.880 ms        26.0 MB     58.59 TFLOP/s   relerr 2.54e-04
+      triton_flash        0.921 ms        25.2 MB     55.95 TFLOP/s   relerr 2.53e-04
+      tiled_flash     skipped (pure-python tiling too slow above N=0)
+
+  --- C_causal: B=8 H=12 N=4096 D=64 dtype=float16 causal=True ---
+      naive           OUT OF MEMORY
+      math            OUT OF MEMORY
+      cudnn               3.386 ms        50.3 MB     60.88 TFLOP/s   relerr 2.56e-04
+      flash               3.332 ms        51.9 MB     61.88 TFLOP/s   relerr 2.56e-04
+      mem_efficient       6.586 ms        50.3 MB     31.30 TFLOP/s   relerr 2.56e-04
+      auto                3.343 ms        51.9 MB     61.67 TFLOP/s   relerr 2.56e-04
+      triton_flash        3.565 ms        50.3 MB     57.83 TFLOP/s   relerr 2.56e-04
+      tiled_flash     skipped (pure-python tiling too slow above N=0)
+
+  --- C_causal: B=8 H=12 N=8192 D=64 dtype=float16 causal=True ---
+      naive           OUT OF MEMORY
+      math            OUT OF MEMORY
+      cudnn              13.023 ms       100.7 MB     63.32 TFLOP/s   relerr 2.59e-04
+      flash              12.936 ms       103.8 MB     63.74 TFLOP/s   relerr 2.59e-04
+      mem_efficient      26.066 ms       100.7 MB     31.64 TFLOP/s   relerr 2.59e-04
+      auto               12.940 ms       103.8 MB     63.73 TFLOP/s   relerr 2.59e-04
+      triton_flash       13.916 ms       100.7 MB     59.26 TFLOP/s   relerr 2.59e-04
+      tiled_flash     skipped (pure-python tiling too slow above N=0)
+
+==============================================================================
+SWEEP D - head dimension sensitivity at N=2048
+==============================================================================
+
+  --- D_headdim32: B=8 H=24 N=2048 D=32 dtype=float16 causal=False ---
+      naive              17.422 ms      3246.4 MB      5.92 TFLOP/s   relerr 7.61e-04
+      math               52.731 ms      7449.5 MB      1.95 TFLOP/s   relerr 2.08e-04
+      cudnn               3.198 ms        25.2 MB     32.24 TFLOP/s   relerr 2.81e-04
+      flash               1.644 ms        26.7 MB     62.69 TFLOP/s   relerr 2.81e-04
+      mem_efficient       4.863 ms        25.2 MB     21.20 TFLOP/s   relerr 2.81e-04
+      auto                1.643 ms        26.7 MB     62.73 TFLOP/s   relerr 2.81e-04
+      triton_flash        1.761 ms        25.2 MB     58.54 TFLOP/s   relerr 2.81e-04
+      tiled_flash     skipped (pure-python tiling too slow above N=0)
+
+  --- D_headdim64: B=8 H=12 N=2048 D=64 dtype=float16 causal=False ---
+      naive               9.236 ms      1635.8 MB     11.16 TFLOP/s   relerr 5.58e-04
+      math               27.971 ms      3825.4 MB      3.69 TFLOP/s   relerr 2.08e-04
+      cudnn               1.607 ms        25.2 MB     64.15 TFLOP/s   relerr 2.81e-04
+      flash               1.579 ms        26.0 MB     65.28 TFLOP/s   relerr 2.82e-04
+      mem_efficient       3.190 ms        25.2 MB     32.31 TFLOP/s   relerr 2.81e-04
+      auto                1.579 ms        26.0 MB     65.28 TFLOP/s   relerr 2.82e-04
+      triton_flash        1.998 ms        25.2 MB     51.60 TFLOP/s   relerr 2.81e-04
+      tiled_flash     skipped (pure-python tiling too slow above N=0)
+
+  --- D_headdim128: B=8 H=6 N=2048 D=128 dtype=float16 causal=False ---
+      naive               5.353 ms       830.5 MB     19.26 TFLOP/s   relerr 7.29e-04
+      math               19.620 ms      2013.4 MB      5.25 TFLOP/s   relerr 2.08e-04
+      cudnn               1.569 ms        25.2 MB     65.68 TFLOP/s   relerr 2.82e-04
+      flash               1.705 ms        25.6 MB     60.47 TFLOP/s   relerr 2.82e-04
+      mem_efficient       3.907 ms        25.2 MB     26.38 TFLOP/s   relerr 2.83e-04
+      auto                1.703 ms        25.6 MB     60.51 TFLOP/s   relerr 2.82e-04
+      triton_flash        2.565 ms        25.2 MB     40.19 TFLOP/s   relerr 2.82e-04
+      tiled_flash     skipped (pure-python tiling too slow above N=0)
+
+==============================================================================
+SWEEP E - batch-size sensitivity at N=1024
+==============================================================================
+
+  --- E_batch1: B=1 H=12 N=1024 D=64 dtype=float16 causal=False ---
+      naive               0.160 ms        51.9 MB     20.13 TFLOP/s   relerr 5.56e-04
+      math                0.828 ms       125.8 MB      3.89 TFLOP/s   relerr 2.07e-04
+      cudnn               0.053 ms         1.6 MB     60.24 TFLOP/s   relerr 2.78e-04
+      flash               0.056 ms         1.6 MB     57.65 TFLOP/s   relerr 2.80e-04
+      mem_efficient       0.114 ms         1.6 MB     28.20 TFLOP/s   relerr 2.78e-04
+      auto                0.057 ms         1.6 MB     56.58 TFLOP/s   relerr 2.80e-04
+      triton_flash        0.066 ms         2.1 MB     49.04 TFLOP/s   relerr 2.78e-04
+      tiled_flash     skipped (pure-python tiling too slow above N=0)
+
+  --- E_batch2: B=2 H=12 N=1024 D=64 dtype=float16 causal=False ---
+      naive               0.531 ms       103.8 MB     12.13 TFLOP/s   relerr 5.53e-04
+      math                1.722 ms       251.7 MB      3.74 TFLOP/s   relerr 2.07e-04
+      cudnn               0.106 ms         3.1 MB     60.68 TFLOP/s   relerr 2.77e-04
+      flash               0.104 ms         3.2 MB     61.99 TFLOP/s   relerr 2.78e-04
+      mem_efficient       0.213 ms         3.1 MB     30.29 TFLOP/s   relerr 2.77e-04
+      auto                0.102 ms         3.2 MB     63.07 TFLOP/s   relerr 2.78e-04
+      triton_flash        0.129 ms         3.1 MB     49.80 TFLOP/s   relerr 2.77e-04
+      tiled_flash     skipped (pure-python tiling too slow above N=0)
+
+  --- E_batch4: B=4 H=12 N=1024 D=64 dtype=float16 causal=False ---
+      naive               1.119 ms       207.6 MB     11.51 TFLOP/s   relerr 5.54e-04
+      math                3.961 ms       503.4 MB      3.25 TFLOP/s   relerr 2.07e-04
+      cudnn               0.211 ms         6.3 MB     61.07 TFLOP/s   relerr 2.78e-04
+      flash               0.204 ms         6.5 MB     63.19 TFLOP/s   relerr 2.79e-04
+      mem_efficient       0.405 ms         6.3 MB     31.80 TFLOP/s   relerr 2.78e-04
+      auto                0.202 ms         6.5 MB     63.85 TFLOP/s   relerr 2.79e-04
+      triton_flash        0.246 ms         6.3 MB     52.47 TFLOP/s   relerr 2.78e-04
+      tiled_flash     skipped (pure-python tiling too slow above N=0)
+
+  --- E_batch8: B=8 H=12 N=1024 D=64 dtype=float16 causal=False ---
+      naive               2.263 ms       415.2 MB     11.39 TFLOP/s   relerr 5.52e-04
+      math                7.158 ms      1006.7 MB      3.60 TFLOP/s   relerr 2.07e-04
+      cudnn               0.416 ms        12.6 MB     62.01 TFLOP/s   relerr 2.78e-04
+      flash               0.393 ms        13.0 MB     65.55 TFLOP/s   relerr 2.78e-04
+      mem_efficient       0.798 ms        12.6 MB     32.28 TFLOP/s   relerr 2.78e-04
+      auto                0.400 ms        13.0 MB     64.49 TFLOP/s   relerr 2.78e-04
+      triton_flash        0.499 ms        12.6 MB     51.65 TFLOP/s   relerr 2.78e-04
+      tiled_flash     skipped (pure-python tiling too slow above N=0)
+
+  --- E_batch16: B=16 H=12 N=1024 D=64 dtype=float16 causal=False ---
+      naive               4.518 ms       830.5 MB     11.41 TFLOP/s   relerr 5.53e-04
+      math               14.342 ms      2013.5 MB      3.59 TFLOP/s   relerr 2.07e-04
+      cudnn               0.837 ms        25.2 MB     61.58 TFLOP/s   relerr 2.78e-04
+      flash               0.790 ms        26.0 MB     65.25 TFLOP/s   relerr 2.78e-04
+      mem_efficient       1.595 ms        25.2 MB     32.32 TFLOP/s   relerr 2.78e-04
+      auto                0.794 ms        26.0 MB     64.90 TFLOP/s   relerr 2.78e-04
+      triton_flash        1.030 ms        25.2 MB     50.02 TFLOP/s   relerr 2.78e-04
+      tiled_flash     skipped (pure-python tiling too slow above N=0)
+
+  --- E_batch32: B=32 H=12 N=1024 D=64 dtype=float16 causal=False ---
+      naive               9.079 ms      1660.9 MB     11.35 TFLOP/s   relerr 5.52e-04
+      math               29.510 ms      4026.9 MB      3.49 TFLOP/s   relerr 2.07e-04
+      cudnn               1.675 ms        50.3 MB     61.55 TFLOP/s   relerr 2.77e-04
+      flash               1.580 ms        51.9 MB     65.25 TFLOP/s   relerr 2.78e-04
+      mem_efficient       3.185 ms        50.3 MB     32.36 TFLOP/s   relerr 2.77e-04
+      auto                1.587 ms        51.9 MB     64.96 TFLOP/s   relerr 2.78e-04
+      triton_flash        2.069 ms        50.3 MB     49.81 TFLOP/s   relerr 2.77e-04
+      tiled_flash     skipped (pure-python tiling too slow above N=0)
+
+==============================================================================
+SWEEP F - bfloat16
+==============================================================================
+
+  --- F_bf16: B=16 H=12 N=512 D=64 dtype=bfloat16 causal=False ---
+      naive               1.260 ms       213.9 MB     10.23 TFLOP/s   relerr 4.35e-03
+      math                3.793 ms       553.7 MB      3.40 TFLOP/s   relerr 1.66e-03
+      cudnn               0.219 ms        12.6 MB     58.88 TFLOP/s   relerr 2.19e-03
+      flash               0.208 ms        13.0 MB     62.00 TFLOP/s   relerr 2.21e-03
+      mem_efficient       0.402 ms        12.6 MB     32.09 TFLOP/s   relerr 2.19e-03
+      auto                0.203 ms        13.0 MB     63.55 TFLOP/s   relerr 2.21e-03
+      triton_flash        0.254 ms        12.6 MB     50.64 TFLOP/s   relerr 2.19e-03
+      tiled_flash     skipped (pure-python tiling too slow above N=0)
+
+  --- F_bf16: B=16 H=12 N=1024 D=64 dtype=bfloat16 causal=False ---
+      naive               4.709 ms       830.5 MB     10.95 TFLOP/s   relerr 4.44e-03
+      math               14.336 ms      2013.5 MB      3.60 TFLOP/s   relerr 1.66e-03
+      cudnn               0.835 ms        25.2 MB     61.70 TFLOP/s   relerr 2.22e-03
+      flash               0.789 ms        26.0 MB     65.28 TFLOP/s   relerr 2.23e-03
+      mem_efficient       1.584 ms        25.2 MB     32.54 TFLOP/s   relerr 2.22e-03
+      auto                0.789 ms        26.0 MB     65.32 TFLOP/s   relerr 2.23e-03
+      triton_flash        1.035 ms        25.2 MB     49.80 TFLOP/s   relerr 2.22e-03
+      tiled_flash     skipped (pure-python tiling too slow above N=0)
+
+  --- F_bf16: B=16 H=12 N=2048 D=64 dtype=bfloat16 causal=False ---
+      naive              19.390 ms      3271.6 MB     10.63 TFLOP/s   relerr 4.45e-03
+      math               56.364 ms      7650.8 MB      3.66 TFLOP/s   relerr 1.66e-03
+      cudnn               3.209 ms        50.3 MB     64.25 TFLOP/s   relerr 2.25e-03
+      flash               3.147 ms        51.9 MB     65.51 TFLOP/s   relerr 2.25e-03
+      mem_efficient       6.350 ms        50.3 MB     32.47 TFLOP/s   relerr 2.25e-03
+      auto                3.147 ms        51.9 MB     65.51 TFLOP/s   relerr 2.25e-03
+      triton_flash        3.982 ms        50.3 MB     51.77 TFLOP/s   relerr 2.25e-03
+      tiled_flash     skipped (pure-python tiling too slow above N=0)
+  wrote 232 rows -> ../results/kernel_benchmarks.json
+
+==============================================================================
+SWEEP G - full MHA layer (with Q/K/V/O projections)
+==============================================================================
+
+  --- layer sweep: B=8 N=128 E=768 H=12 ---
+      math                0.237 ms        33.0 MB
+      flash               0.130 ms         7.9 MB
+      mem_efficient       0.139 ms         7.9 MB
+      cudnn               0.143 ms         7.9 MB
+      auto                0.131 ms         7.9 MB
+      triton_flash        0.157 ms        11.0 MB
+
+  --- layer sweep: B=8 N=256 E=768 H=12 ---
+      math                0.545 ms        91.3 MB
+      flash               0.182 ms        15.7 MB
+      mem_efficient       0.209 ms        15.7 MB
+      cudnn               0.185 ms        15.7 MB
+      auto                0.181 ms        15.7 MB
+      triton_flash        0.223 ms        22.0 MB
+
+  --- layer sweep: B=8 N=512 E=768 H=12 ---
+      math                2.265 ms       295.7 MB
+      flash               0.400 ms        31.5 MB
+      mem_efficient       0.505 ms        31.5 MB
+      cudnn               0.406 ms        31.5 MB
+      auto                0.406 ms        31.5 MB
+      triton_flash        0.488 ms        44.0 MB
+
+  --- layer sweep: B=8 N=1024 E=768 H=12 ---
+      math                8.125 ms      1044.5 MB
+      flash               0.998 ms        62.9 MB
+      mem_efficient       1.400 ms        62.9 MB
+      cudnn               1.019 ms        62.9 MB
+      auto                0.993 ms        62.9 MB
+      triton_flash        1.279 ms        88.1 MB
+
+  --- layer sweep: B=8 N=2048 E=768 H=12 ---
+      math               29.687 ms      3900.9 MB
+      flash               2.800 ms       125.8 MB
+      mem_efficient       4.415 ms       125.8 MB
+      cudnn               2.818 ms       125.8 MB
+      auto                2.787 ms       125.8 MB
+      triton_flash        3.629 ms       176.2 MB
+
+  --- layer sweep: B=8 N=4096 E=768 H=12 ---
+      math            OUT OF MEMORY
+      flash               8.718 ms       251.7 MB
+      mem_efficient      15.114 ms       251.7 MB
+      cudnn               8.744 ms       251.7 MB
+      auto                8.718 ms       251.7 MB
+      triton_flash       11.026 ms       352.3 MB
+  wrote 36 rows -> ../results/layer_benchmarks.json
+
+==============================================================================
+SWEEP H - training step (forward + backward)
+==============================================================================
+
+  --- train step (fwd+bwd): B=4 N=512 causal=True ---
+      math                2.048 ms       241.3 MB
+      flash               0.225 ms        34.8 MB
+      mem_efficient       0.371 ms        31.7 MB
+
+  --- train step (fwd+bwd): B=4 N=1024 causal=True ---
+      math                8.201 ms       868.2 MB
+      flash               0.564 ms        69.6 MB
+      mem_efficient       1.134 ms        63.3 MB
+
+  --- train step (fwd+bwd): B=4 N=2048 causal=True ---
+      math               32.793 ms      3347.1 MB
+      flash               1.815 ms       139.2 MB
+      mem_efficient       3.950 ms       126.6 MB
+
+  --- train step (fwd+bwd): B=4 N=4096 causal=True ---
+      math            OUT OF MEMORY
+      flash               6.499 ms       278.4 MB
+      mem_efficient      15.127 ms       253.3 MB
+
+  --- train step (fwd+bwd): B=4 N=8192 causal=True ---
+      math            OUT OF MEMORY
+      flash              24.883 ms       556.8 MB
+      mem_efficient      58.479 ms       506.6 MB
+  wrote 15 rows -> ../results/train_step_benchmarks.json
+
+==============================================================================
+SWEEP I - autoregressive decode with KV cache: MHA vs GQA vs MQA
+==============================================================================
+      T=   512 MHA      native   0.506 ms   repeat-kv   0.505 ms   KV     67.1 MB       63247 tok/s
+      T=   512 GQA-8    native   0.260 ms   repeat-kv   0.545 ms   KV     33.6 MB      123251 tok/s
+      T=   512 GQA-4    native   0.134 ms   repeat-kv   0.447 ms   KV     16.8 MB      238237 tok/s
+      T=   512 GQA-2    native   0.097 ms   repeat-kv   0.408 ms   KV      8.4 MB      329598 tok/s
+      T=   512 MQA      native   0.097 ms   repeat-kv   0.246 ms   KV      4.2 MB      328299 tok/s
+      T=  2048 MHA      native   1.601 ms   repeat-kv   1.603 ms   KV    268.4 MB       19988 tok/s
+      T=  2048 GQA-8    native   0.814 ms   repeat-kv   1.916 ms   KV    134.2 MB       39302 tok/s
+      T=  2048 GQA-4    native   0.434 ms   repeat-kv   1.535 ms   KV     67.1 MB       73752 tok/s
+      T=  2048 GQA-2    native   0.214 ms   repeat-kv   1.315 ms   KV     33.6 MB      149858 tok/s
+      T=  2048 MQA      native   0.101 ms   repeat-kv   0.651 ms   KV     16.8 MB      316706 tok/s
+      T=  8192 MHA      native   6.095 ms   repeat-kv   6.098 ms   KV   1073.7 MB        5250 tok/s
+      T=  8192 GQA-8    native   3.116 ms   repeat-kv   7.159 ms   KV    536.9 MB       10268 tok/s
+      T=  8192 GQA-4    native   1.580 ms   repeat-kv   5.750 ms   KV    268.4 MB       20247 tok/s
+      T=  8192 GQA-2    native   0.720 ms   repeat-kv   5.821 ms   KV    134.2 MB       44455 tok/s
+      T=  8192 MQA      native   0.375 ms   repeat-kv   2.430 ms   KV     67.1 MB       85222 tok/s
+      T= 16384 MHA      native  12.170 ms   repeat-kv  12.561 ms   KV   2147.5 MB        2629 tok/s
+      T= 16384 GQA-8    native   6.236 ms   repeat-kv  14.270 ms   KV   1073.7 MB        5132 tok/s
+      T= 16384 GQA-4    native   3.125 ms   repeat-kv  11.477 ms   KV    536.9 MB       10239 tok/s
+      T= 16384 GQA-2    native   1.411 ms   repeat-kv  10.082 ms   KV    268.4 MB       22674 tok/s
+      T= 16384 MQA      native   0.717 ms   repeat-kv   4.852 ms   KV    134.2 MB       44601 tok/s
+  wrote 20 rows -> ../results/decode_benchmarks.json
+
+All benchmarks complete.

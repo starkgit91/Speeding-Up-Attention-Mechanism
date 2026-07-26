@@ -1,0 +1,21 @@
+# Virtual environment (6.9 GB — never commit; recreate with the README steps)
+.venv/
+venv/
+env/
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+
+# Downloaded dataset (fetched by the README curl step)
+data/tinyshakespeare.txt
+
+# Keep results/*.json, results/*.csv, results/*.log and figures/*.png — they are
+# the deliverables the report links to.
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/

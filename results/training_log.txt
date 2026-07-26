@@ -1,0 +1,109 @@
+==============================================================================
+TRAINING STUDY - kernel swap vs architecture change
+==============================================================================
+  device NVIDIA GeForce RTX 5070  torch 2.11.0+cu128
+
+------------------------------------------------------------------------------
+PART 1 - architecture-level: train MHA / GQA / MQA from scratch
+        (these change what is computed, so each needs its own training run)
+------------------------------------------------------------------------------
+
+  --- MHA  (n_kv_head=8) ---
+    [MHA] step     1/3000  train 4.0327  val 4.0399  (   0.7s)
+    [MHA] step   250/3000  train 2.3993  val 2.4138  (   5.4s)
+    [MHA] step   500/3000  train 1.9481  val 2.0348  (  10.2s)
+    [MHA] step   750/3000  train 1.6455  val 1.8220  (  14.9s)
+    [MHA] step  1000/3000  train 1.4909  val 1.6927  (  19.6s)
+    [MHA] step  1250/3000  train 1.3989  val 1.6171  (  24.4s)
+    [MHA] step  1500/3000  train 1.3278  val 1.5654  (  29.1s)
+    [MHA] step  1750/3000  train 1.2802  val 1.5427  (  33.8s)
+    [MHA] step  2000/3000  train 1.2408  val 1.5251  (  38.5s)
+    [MHA] step  2250/3000  train 1.1973  val 1.5029  (  43.3s)
+    [MHA] step  2500/3000  train 1.1749  val 1.4959  (  48.0s)
+    [MHA] step  2750/3000  train 1.1623  val 1.4945  (  52.7s)
+    [MHA] step  3000/3000  train 1.1585  val 1.4918  (  57.5s)
+    -> val loss 1.4878  ppl 4.427  params 10.75M  KV/token 9216B  486,666 tok/s  peak 1043 MB
+
+  --- GQA-4  (n_kv_head=4) ---
+    [GQA-4] step     1/3000  train 4.0367  val 4.0414  (   0.4s)
+    [GQA-4] step   250/3000  train 2.3972  val 2.4175  (   5.0s)
+    [GQA-4] step   500/3000  train 1.9490  val 2.0374  (   9.6s)
+    [GQA-4] step   750/3000  train 1.6398  val 1.8151  (  14.2s)
+    [GQA-4] step  1000/3000  train 1.4914  val 1.6940  (  18.8s)
+    [GQA-4] step  1250/3000  train 1.3992  val 1.6152  (  23.5s)
+    [GQA-4] step  1500/3000  train 1.3311  val 1.5777  (  28.1s)
+    [GQA-4] step  1750/3000  train 1.2848  val 1.5461  (  32.7s)
+    [GQA-4] step  2000/3000  train 1.2404  val 1.5353  (  37.2s)
+    [GQA-4] step  2250/3000  train 1.2037  val 1.5129  (  41.6s)
+    [GQA-4] step  2500/3000  train 1.1819  val 1.5068  (  46.1s)
+    [GQA-4] step  2750/3000  train 1.1694  val 1.5063  (  50.5s)
+    [GQA-4] step  3000/3000  train 1.1658  val 1.5038  (  55.0s)
+    -> val loss 1.4979  ppl 4.472  params 9.87M  KV/token 4608B  520,074 tok/s  peak 1117 MB
+
+  --- GQA-2  (n_kv_head=2) ---
+    [GQA-2] step     1/3000  train 4.1691  val 4.1692  (   0.4s)
+    [GQA-2] step   250/3000  train 2.3975  val 2.4247  (   4.8s)
+    [GQA-2] step   500/3000  train 1.9484  val 2.0342  (   9.1s)
+    [GQA-2] step   750/3000  train 1.6468  val 1.8112  (  13.4s)
+    [GQA-2] step  1000/3000  train 1.5004  val 1.7021  (  17.8s)
+    [GQA-2] step  1250/3000  train 1.4023  val 1.6223  (  22.1s)
+    [GQA-2] step  1500/3000  train 1.3415  val 1.5802  (  26.5s)
+    [GQA-2] step  1750/3000  train 1.2921  val 1.5475  (  30.9s)
+    [GQA-2] step  2000/3000  train 1.2514  val 1.5399  (  35.2s)
+    [GQA-2] step  2250/3000  train 1.2159  val 1.5114  (  39.6s)
+    [GQA-2] step  2500/3000  train 1.1939  val 1.5038  (  43.9s)
+    [GQA-2] step  2750/3000  train 1.1817  val 1.5018  (  48.3s)
+    [GQA-2] step  3000/3000  train 1.1791  val 1.4997  (  52.7s)
+    -> val loss 1.4934  ppl 4.452  params 9.42M  KV/token 2304B  532,994 tok/s  peak 1104 MB
+
+  --- MQA  (n_kv_head=1) ---
+    [MQA] step     1/3000  train 4.0844  val 4.0872  (   0.4s)
+    [MQA] step   250/3000  train 2.3988  val 2.4210  (   4.6s)
+    [MQA] step   500/3000  train 1.9741  val 2.0484  (   8.7s)
+    [MQA] step   750/3000  train 1.6829  val 1.8497  (  12.9s)
+    [MQA] step  1000/3000  train 1.5144  val 1.7119  (  17.1s)
+    [MQA] step  1250/3000  train 1.4264  val 1.6373  (  21.2s)
+    [MQA] step  1500/3000  train 1.3601  val 1.5821  (  25.4s)
+    [MQA] step  1750/3000  train 1.3062  val 1.5538  (  29.6s)
+    [MQA] step  2000/3000  train 1.2707  val 1.5368  (  33.7s)
+    [MQA] step  2250/3000  train 1.2340  val 1.5122  (  37.9s)
+    [MQA] step  2500/3000  train 1.2148  val 1.5032  (  42.1s)
+    [MQA] step  2750/3000  train 1.2031  val 1.4991  (  46.3s)
+    [MQA] step  3000/3000  train 1.2000  val 1.4973  (  50.5s)
+    -> val loss 1.4911  ppl 4.442  params 9.20M  KV/token 1152B  553,778 tok/s  peak 1034 MB
+
+------------------------------------------------------------------------------
+PART 2 - kernel-level: same trained MHA weights, different attention kernels
+        (these change only how it is computed - the model must not change)
+------------------------------------------------------------------------------
+
+  Evaluating one trained checkpoint under each attention kernel:
+    math           val loss 1.487846  ppl  4.4275   fwd  14.115 ms   peak    266.4 MB
+    flash          val loss 1.487835  ppl  4.4275   fwd   4.849 ms   peak    110.9 MB
+    mem_efficient  val loss 1.487821  ppl  4.4274   fwd   5.016 ms   peak    110.9 MB
+    cudnn          val loss 1.487811  ppl  4.4274   fwd   4.855 ms   peak    110.9 MB
+    auto           val loss 1.487835  ppl  4.4275   fwd   4.828 ms   peak    110.9 MB
+    triton_flash   ERROR AssertionError
+    naive          val loss 1.488055  ppl  4.4285   fwd  10.629 ms   peak    233.2 MB
+    tiled_flash    val loss 1.487990  ppl  4.4282   fwd  10.231 ms   peak    145.9 MB
+
+    val-loss spread across all kernels: 2.43e-04 nats (0.0164% of the loss)
+    fastest kernel auto 4.828 ms vs slowest math 14.115 ms -> 2.92x
+
+  Sample generation from the trained MHA model (flash kernel):
+  ------------------------------------------------------------
+  | 
+  | Put your heavy and impossible them well
+  | That in meeting for my prepared or prattes
+  | A body the blanch of witness shears unto me.
+  | 
+  | RIVERS:
+  | Look a garge world, what deckleness thou art,
+  | That want in thy danger deeds doth thou canst do of.
+  | 
+  | JOHN OF GAUNT:
+  | Did be envy respect to her for my husband,
+  | His h
+  ------------------------------------------------------------
+
+  wrote ../results/training_results.json

@@ -1,0 +1,62 @@
+==============================================================================
+SEED STUDY - is the MHA/GQA/MQA quality gap above the noise floor?
+==============================================================================
+
+  --- MHA, seed 1337 ---
+    [MHA/s1337] step     1/3000  train 4.0327  val 4.0399  (   0.7s)
+    [MHA/s1337] step  3000/3000  train 1.1564  val 1.4945  (  50.9s)
+    -> val loss 1.4892  ppl 4.434
+
+  --- MHA, seed 7 ---
+    [MHA/s7] step     1/3000  train 4.0865  val 4.0865  (   0.4s)
+    [MHA/s7] step  3000/3000  train 1.1531  val 1.4957  (  50.7s)
+    -> val loss 1.4893  ppl 4.434
+
+  --- MHA, seed 2024 ---
+    [MHA/s2024] step     1/3000  train 4.0838  val 4.0847  (   0.4s)
+    [MHA/s2024] step  3000/3000  train 1.1585  val 1.5105  (  50.7s)
+    -> val loss 1.5045  ppl 4.502
+
+  --- GQA-4, seed 1337 ---
+    [GQA-4/s1337] step     1/3000  train 4.0367  val 4.0414  (   0.4s)
+    [GQA-4/s1337] step  3000/3000  train 1.1666  val 1.5055  (  49.3s)
+    -> val loss 1.4990  ppl 4.477
+
+  --- GQA-4, seed 7 ---
+    [GQA-4/s7] step     1/3000  train 4.0691  val 4.0820  (   0.4s)
+    [GQA-4/s7] step  3000/3000  train 1.1608  val 1.4970  (  49.3s)
+    -> val loss 1.4927  ppl 4.449
+
+  --- GQA-4, seed 2024 ---
+    [GQA-4/s2024] step     1/3000  train 4.1286  val 4.1302  (   0.4s)
+    [GQA-4/s2024] step  3000/3000  train 1.1602  val 1.4937  (  49.3s)
+    -> val loss 1.4893  ppl 4.434
+
+  --- MQA, seed 1337 ---
+    [MQA/s1337] step     1/3000  train 4.0844  val 4.0872  (   0.4s)
+    [MQA/s1337] step  3000/3000  train 1.1988  val 1.4970  (  46.6s)
+    -> val loss 1.4902  ppl 4.438
+
+  --- MQA, seed 7 ---
+    [MQA/s7] step     1/3000  train 4.1122  val 4.1173  (   0.4s)
+    [MQA/s7] step  3000/3000  train 1.1942  val 1.4957  (  46.6s)
+    -> val loss 1.4903  ppl 4.438
+
+  --- MQA, seed 2024 ---
+    [MQA/s2024] step     1/3000  train 4.1275  val 4.1230  (   0.4s)
+    [MQA/s2024] step  3000/3000  train 1.1805  val 1.5028  (  46.6s)
+    -> val loss 1.4985  ppl 4.475
+
+==============================================================================
+SUMMARY
+==============================================================================
+  MHA     val loss 1.4943 +/- 0.0088  (range 1.4892-1.5045, n=3)  seeds: ['1.4892', '1.4893', '1.5045']
+  GQA-4   val loss 1.4937 +/- 0.0049  (range 1.4893-1.4990, n=3)  seeds: ['1.4990', '1.4927', '1.4893']
+  MQA     val loss 1.4930 +/- 0.0047  (range 1.4902-1.4985, n=3)  seeds: ['1.4902', '1.4903', '1.4985']
+
+  spread BETWEEN layouts (max mean - min mean): 0.0014 nats
+  average WITHIN-layout seed std:                 0.0061 nats
+  ratio between/within: 0.22
+  verdict: the layouts are NOT distinguishable at this scale - the between-layout spread is within seed noise
+
+  wrote ../results/seed_study.json

@@ -1,0 +1,20 @@
+{
+  "gpu": "NVIDIA GeForce RTX 5070",
+  "compute_capability": "sm_120",
+  "total_mem_gb": 12.35,
+  "sms": 48,
+  "torch": "2.11.0+cu128",
+  "cuda": "12.8",
+  "cudnn": 91900,
+  "triton": "3.6.0",
+  "driver": "595.71.05",
+  "python": "3.12.3",
+  "platform": "Linux-7.0.0-28-generic-x86_64-with-glibc2.39",
+  "sdpa_backends": [
+    "cudnn",
+    "flash",
+    "math",
+    "mem_efficient"
+  ],
+  "timestamp": "2026-07-26 02:39:30"
+}
