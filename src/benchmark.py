@@ -218,6 +218,7 @@ def high_precision_reference(q, k, v, causal, dtype=torch.float64) -> torch.Tens
 
 def fp64_reference(q, k, v, causal) -> torch.Tensor:
     """fp64 where affordable, fp32 otherwise; always upcast to fp64 for comparison."""
+    torch.cuda.empty_cache()
     B, H, N, D = q.shape
     try:
         if B * H * N * D * 8 * 4 < 3e9:          # q,k,v,out copies in fp64
